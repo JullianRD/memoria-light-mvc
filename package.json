@@ -1,0 +1,19 @@
+{
+  "name": "memoria-light-mvc",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node --env-file=.env src/app.js",
+    "dev": "node --env-file=.env --watch src/app.js",
+    "db:init": "bash ./scripts/init_db.sh",
+    "db:reset": "bash ./scripts/reset_db.sh",
+    "db:nuke": "bash ./scripts/nuke_db.sh"
+  },
+  "dependencies": {
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "pg": "^8.17.1",
+    "dotenv": "^17.2.3"
+  }
+}
