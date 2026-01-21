@@ -86,6 +86,13 @@
                 <option value="livre">Livre</option>
                 <option value="video">Video</option>
             </select>
+            <label for="type">Tag name: </label>
+            <select name="contentType" style="margin-bottom: 0; width: auto;">
+                <option value="note">tag 1</option>
+                <option value="article">Tag 2</option>
+                <option value="livre">Tag 3</option>
+                <option value="video">Tag 4</option>
+            </select>
             <button type="submit">Save to vault</button>
         </div>
         </form>
@@ -103,6 +110,15 @@
                         <span class="badge">
                             <%= item.contentType %>
                         </span>
+                        <label for="itemSelect">Item :</label>
+<select id="itemSelect" name="item_id" style="margin-bottom: 0; width: auto;">
+    <option value="">-- Choose an item --</option>
+    <% items.forEach(item => { %>
+        <option value="<%= item.id %>">
+            <%= item.title %>
+        </option>
+    <% }) %>
+</select>
                         <h2 style="margin: 0.5rem 0;">
                             <%= item.title %>
                         </h2>

@@ -12,6 +12,18 @@ class ItemController {
             res.status(500).send("Erreur serveur");
         }
     }
+
+    // POST /items
+    async store(req, res) {
+        try {
+            const data = req.body
+            await Item.create(data)
+            res.status(201).redirect('/')
+        } catch (error) {
+            console.error(error)
+            res.status(500).send("Erreur lors de la création" + error.message)
+        }
+    }
 }
 
 // On exporte une intance unique (Singleton pattern simplifié) 
