@@ -1,0 +1,30 @@
+<div class="card">
+    <a href="/items"> Retour à la liste</a>
+    <hr>
+    <span class="badge">
+        <%= item.contentType %>
+    </span>
+    <h1>
+        <%= item.title %>
+        <%= item.userId %>
+        <%= item.metadata.language %>
+
+    </h1>
+    <p>
+        <strong>Source :</strong>
+        <%= item.sourceAuthor %>
+    </p>
+
+    <div style="background: #fdfdfd; padding: 20px; border-left: 4px solid #2c3e50; margin: 20px 0;">
+        <%= item.content %>
+    </div>
+
+    <div class="meta">
+        Captured on <%= item.createdAt.toLocaleDateString() %> at
+            <%= item.createdAt.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %>
+    </div>
+
+    <div>
+        <a href="/items/<%= item.id %>/edit">Modifier cette pépite</a>
+    </div>
+</div>

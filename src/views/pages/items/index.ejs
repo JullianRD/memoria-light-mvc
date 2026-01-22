@@ -1,33 +1,40 @@
+<!-- views/index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memoria - Digital Vault</title>
     <style>
         body {
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 2rem;
             max-width: 900px;
             margin: 0 auto;
-            background-color: aliceblue;
+            background-color: #f8f9fa;
         }
+
         .form-container {
             background: white;
             padding: 2rem;
             margin-bottom: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(rgb(0, 0, 0), green, blue, alpha);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .card {
             background: white;
             border: 1px solid #eee;
-            padding: 1rem;
-            margin-bottom: 2rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(rgb(0, 0, 0), green, blue, alpha);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-        input, textarea, select {
+
+        input,
+        textarea,
+        select {
             width: 100%;
             padding: 0.8rem;
             margin-bottom: 1rem;
@@ -36,6 +43,7 @@
             display: block;
             box-sizing: border-box;
         }
+
         button {
             background: #2c3e50;
             color: white;
@@ -45,95 +53,93 @@
             cursor: pointer;
             font-weight: bold;
         }
+
         button:hover {
-            background-color: black;
+            background-color: #34495e;
         }
+
         .badge {
             display: inline-block;
             background: #e9ecef;
-            padding: 0.2rem 0.9rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 4rem;
             font-size: 0.75rem;
             font-weight: bold;
-            color: #2c3e50;
+            color: #495057;
             margin-bottom: 0.5rem;
         }
+
         .meta {
-            color: azure;
+            color: #6c757d;
             font-size: 0.85rem;
-            margin-bottom: 1rem;
+            margin-top: 1rem;
         }
     </style>
 </head>
+
 <body>
     <h1>Memoria</h1>
     <p>Your personal knowledge vault.</p>
 
     <!-- Formulaire d'ajout -->
     <div class="form-container">
-        <h3>Add a new Insight</h3>
+        <h3>Add a New Insight</h3>
         <form action="/items" method="post">
             <div style="display: flex; gap: 10px;">
                 <input type="text" name="title" placeholder="Title of the insight" required style="flex:2">
-                <input type="text" name="sourceAuthor" placeholder="Author (Source)" style="flex: 1">
+                <input type="text" name="sourceAuthor" placeholder="Author (Source)" style="flex: 1;">
             </div>
+
             <textarea name="content" placeholder="What did you learn ? (Text content)" rows="5" required></textarea>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <label for="type">Source Type: </label>
-            <select name="contentType" style="margin-bottom: 0; width: auto;">
-                <option value="note">Note</option>
-                <option value="article">Article</option>
-                <option value="livre">Livre</option>
-                <option value="video">Video</option>
-            </select>
-            <label for="type">Tag name: </label>
-            <select name="contentType" style="margin-bottom: 0; width: auto;">
-                <option value="note">tag 1</option>
-                <option value="article">Tag 2</option>
-                <option value="livre">Tag 3</option>
-                <option value="video">Tag 4</option>
-            </select>
-            <button type="submit">Save to vault</button>
-        </div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <label for="type">Source Type: </label>
+                <select name="contentType" style="margin-bottom: 0; width: auto;">
+                    <option value="note">Note</option>
+                    <option value="article">Article</option>
+                    <option value="livre">Livre</option>
+                    <option value="video">Video</option>
+                </select>
+                <button type="submit">Save to Vault</button>
+            </div>
         </form>
     </div>
 
-        <!-- Liste des pépites -->
+    <!-- Liste des pépites -->
 
     <div>
-        <% if (items.length === 0) { %>
+        <% if (items.length===0) { %>
             <p>No insights captured yet, Strat by adding one above !</p>
-        <% }%>
+            <% }%>
 
-            <% items.forEach(function(item) { %>
+                <% items.forEach(function(item) { %>
                     <div class="card">
                         <span class="badge">
                             <%= item.contentType %>
                         </span>
-                        <label for="itemSelect">Item :</label>
-<select id="itemSelect" name="item_id" style="margin-bottom: 0; width: auto;">
-    <option value="">-- Choose an item --</option>
-    <% items.forEach(item => { %>
-        <option value="<%= item.id %>">
-            <%= item.title %>
-        </option>
-    <% }) %>
-</select>
                         <h2 style="margin: 0.5rem 0;">
                             <%= item.title %>
                         </h2>
                         <p style="color: #555; text-decoration: underline; font-size: 0.9rem;">
-                            by: <%= item.sourceAuthor %>
+                            By: <%= item.sourceAuthor %>
                         </p>
-                        <div>
+                        <div style="margin-top: 1rem; line-height: 1.6;">
                             <%= item.content %>
-                        </div style="margin-top">
+                        </div>
+                        <div>
+                            <a href="/items/<%= item.id %>"> Lire cette pépite </a>
+                        </div>
+                        <form action="/items/<%= item.id %>/delete" method="post" style="margin-top: 1rem;">
+                            <button type="submit" style="background: #f08c2f;">Supprimer cette pépite</button>
+                        </form>
                         <div class="meta">
                             Captured on <%= item.createdAt.toLocaleDateString() %> at
                                 <%= item.createdAt.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %>
                         </div>
                     </div>
+
                     <% }); %>
     </div>
+
 </body>
+
 </html>
