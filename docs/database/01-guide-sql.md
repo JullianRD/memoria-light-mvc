@@ -1,5 +1,30 @@
 # Guide de mise en œuvre de la base de données "Memoria"
 
+Ce guide définit les standards, la sécurité et les optimisations de la base de données PostgreSQL du projet Memoria.
+
+## 📌 Sommaire
+
+1. [📖 Glossaire](#-glossaire-pour-la-base-de-données)
+2. [🔐 Sécurité et bonnes pratiques](#-règles-de-sécurité-et-bonnes-pratiques)
+   - [Accès Rôles](#1-ne-jamais-connecter-lapplication-avec-le-rôle-postgres)
+   - [Mots de passe](#2-toujours-hasher-les-mots-de-passe-côté-backend)
+   - [RGPD & Droit à l'oubli](#3-rgpd-cascade-et-droit-à-loubli)
+3. [📊 Indexation & Performance](#-règles-dindexation-performance)
+   - [Index automatiques vs manuels](#1-postgresql-crée-automatiquement-des-index-pour-)
+   - [Types d'index spécialisés](#2-quand-créer-un-index-manuel-)
+   - [Éviter la sur-indexation](#3-éviter-la-sur-indexation)
+4. [🎯 Types de données](#-règles-sur-les-types-de-données)
+   - [ENUM vs CHECK](#1-utiliser-enum-au-lieu-de-varchar--check)
+   - [CITEXT & JSONB](#2-citext-pour-email-et-pseudo-insensibilité-casse)
+   - [UUID v7](#4-uuid-v7-pour-les-identifiants)
+5. [🔄 Relations & Cardinalités](#-règles-sur-les-relations-cardinalités)
+6. [⚡ Automatisation (Triggers)](#-règles-dautomatisation)
+7. [🔍 Moteur de recherche](#-règles-de-recherche)
+8. [📋 Checklist Production](#-checklist-avant-mise-en-production)
+9. [🐼 Philosophie KISS](#-principe-kiss-appliqué-à-la-db)
+
+---
+
 ## Glossaire pour la base de données
 
 - **DCL (Data Control Language) :** Commandes pour gérer les droits et l'accès (ex: `CREATE USER`, `GRANT`). C'est de la sécurité.
@@ -422,3 +447,7 @@ CREATE TABLE email_validations (
 ---
 
 **Fin du guide** 🐼
+
+_Dernière mise à jour : 22/01/2026_
+
+---
