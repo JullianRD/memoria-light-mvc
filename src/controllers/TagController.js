@@ -2,15 +2,15 @@
  * TODO_02 : Créer les endpoints d'accès à la view (compétence 7 -> REV )
  */
 
-import { Item } from "../models/Item.js";
+import { Tag } from "../models/Tags";
 
-class ItemController {
+class TagController {
   // GET /items -> Liste complète de toutes les pépites
   async index(req, res) {
     try {
-      const items = await Item.findAll();
+      const tags = await Tag.findAll();
       // On envoie des OBJETS à la vue
-      res.render("pages/items/index", { items: items });
+      res.render("pages/items/index", { tags: tags });
     } catch (error) {
       console.error(error);
       res.status(500).send("Erreur serveur");
@@ -21,14 +21,14 @@ class ItemController {
   async edit (req, res){
     try {
       const id = req.params.id;
-      const item = await Item.findById(id);
-      if (!item) {
+      const tag = await Tag.findById(id);
+      if (!tag) {
         return res.status(404).send("Pépite non trouvée")
       }
-      res.render("pages/items/edit", { item });
+      res.render("pages/items/edit", { tag });
     } catch (error) {
       console.error(error);
-      res.status(500).send("Erreur lors de la récupération de la pépite");
+      res.status(500).send("Erreur lors de la récupération du tag");
     }
   }
 
@@ -37,9 +37,9 @@ class ItemController {
     try {
       console.log("Show controller :" + req.params.id);
       const id = req.params.id;
-      const item = await Item.findById(id);
-      console.log("Show controller item:", item);
-      res.render("pages/items/show", { item: item });
+      const tag = await Tag.findById(id);
+      console.log("Show controller tag:", tag);
+      res.render("pages/items/show", { tag: tag });
     } catch (error) {
       console.error(error);
       res.status(404).send("La page est introuvable");
@@ -47,43 +47,43 @@ class ItemController {
   }
 
   //POST /items/:id/update -> Enregistre les modifications 
-  async update(req, res) {
+  async updateTag(req, res) {
     try {
       const id = req.params.id;
       const data = req.body;
 
       // Vérifier si la mise à jour du site à réussi
-      const updateItem = await Item.update(id, data);
+      const updateItem = await Tag.update(id, data);
 
-      if (!updateItem) {
+      if (!updateTag) {
         return res.status(404).send("Pépite non trouvée")
       }
 
-      res.redirect(`/items/${id}`); // Redirige vers la pépite modifiée
+      res.redirect(`/tags/${id}`); // Redirige vers la pépite modifiée
       // res.redirect("/items");    
     } catch (error) {
       console.error(error);
-      res.status(500).send("Erreur lors de la mise à jour de la pépite : " + error.message);
+      res.status(500).send("Erreur lors de la mise à jour du tag : " + error.message);
     }
   }
 
-  // POST /items -> Enregistre la nouvelle pépite
+  // POST /items -> Enregistre le nouveau tag
   async store(req, res) {
     try {
       const data = req.body;
-      await Item.create(data);
-      res.status(201).redirect("/items");
+      await Tag.create(data);
+      res.status(201).redirect("/tags");
     } catch (error) {
       console.error(error);
       res.status(500).send("Erreur lors de la création : " + error.message);
     }
   }
-// POST /items/:id/delete -> supprime une pépite
+// POST /items/:id/delete -> supprime un tag
      async destroy(req, res) {
         try {
             const id = req.params.id
-            await Item.delete(id);
-            res.status(201).redirect('/items');
+            await Tag.delete(id);
+            res.status(201).redirect('/tags');
         } catch (error) {
                         console.error(error);
             res.status(500).send("Erreur lors de la suppression : " + error.message);
@@ -92,4 +92,4 @@ class ItemController {
 }
 
 // On exporte une instance unique (Singleton pattern simplifié)
-export default new ItemController();
+export default new TagController();

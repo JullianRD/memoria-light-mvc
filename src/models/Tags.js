@@ -5,18 +5,12 @@
 import db from "../config/database.js";
 import { generateSlug } from "../utils/generateSlug.js";
 
-export class Item {
+export class Tag {
   constructor(row) {
     // Mapping SQL (snake_case) vers JS (camelCase)
     this.id = row.id_item;
     this.userId = row.user_id;
-    this.contentType = row.content_type;
-    this.title = row.title;
-    this.slug = row.slug;
-    this.content = row.content;
-    this.sourceAuthor = row.source_author;
-    this.thumbnailUrl = row.thumbnail_url;
-    this.metadata = row.metadata;
+    this.tagName = row.tag_name
     this.createdAt = row.created_at;
     this.updatedAt = row.updated_at;
   }
@@ -28,20 +22,20 @@ export class Item {
    */
   static async findAll() {
     // Prepare ma requête
-    const query = /*sql*/ `SELECT * FROM items ORDER BY created_at DESC;`;
+    const query = /*sql*/ `SELECT * FROM tags ORDER BY created_at DESC;`;
     const { rows } = await db.query(query);
     if (rows.length === 0) return null;
     return rows.map((row) => new Item(row));
   }
 
   /**
-   * Retourne une pépite par son identifant.
-   * Si la pépite n'existe pas, retourne null
-   * @param {string} id - L'identifiant de la pépite. UUIDv7
-   * @returns {Promise<Item|Null>} - Une promesse résolue avec l'objet Item correspondant ou null.
+   * Retourne une tag par son identifant.
+   * Si le tag n'existe pas, retourne null
+   * @param {string} id - L'identifiant du tag. UUIDv7
+   * @returns {Promise<Item|Null>} - Une promesse résolue avec l'objet Tag correspondant ou null.
    */
   static async findById(id) {
-    const query = /*sql*/ `SELECT * FROM items WHERE id_item = $1;`;
+    const query = /*sql*/ `SELECT * FROM tags WHERE id_tag = $1;`;
     const { rows } = await db.query(query, [id]);
     console.log("Show Item Model :", { rows });
     if (rows.length === 0) return null;
@@ -49,14 +43,11 @@ export class Item {
   }
 
   /**
-   * Crée une nouvelle pépite dasn la base de données.
+   * Crée un nouveau tag dans la base de données.
    * L'identifiant est générée automiquement.
    * La date de création est générée automatiquement
    * @param {object} data
-   * @param {string} data.title - Le titre de la pépite.
-   * @param {string} data.contentType - Le type de contenu de la pépite (livre, article, note).
-   * @param {string} data.content - Le contenu de la pépite.
-   * @param {string} [data.sourceAuthor="N.C"] - L'auteur de la source de la pépite.
+   * @param {string} data.tagName - Le titre du tag.
    * @returns {Promise<Item>} - Une promesse résolue avec l'objet correspondant.
    */
   static async create(data) {
@@ -67,52 +58,42 @@ export class Item {
     const slug = generateSlug(data.title);
 
     const query = /*sql*/ `
-      INSERT INTO items (user_id, content_type, title, slug, content, source_author)
-      VALUES ($1, $2, $3, $4, $5, $6)
+      INSERT INTO items (user_id, tag_name)
+      VALUES ($1, $2)
       RETURNING *;
     `;
 
     const values = [
       SEEDER_USER_ID,
-      data.contentType,
-      data.title,
+      data.tagName,
       slug,
-      data.content,
-      data.sourceAuthor || "N.C",
     ];
 
     const { rows } = await db.query(query, values);
-    return new Item(rows[0]);
+    return new Tag(rows[0]);
   }
 
   static async update(id, data) {
     const slug = generateSlug(data.title);
     const query = /*sql*/ `
-    UPDATE items
+    UPDATE tags
     SET 
-    contentType = COALESCE($1, content_type),
-    title = COALESCE($2, title),
-    content = COALESCE($3, content),
-    slug = COALESCE($4, slug),
-    source_author = COALESCE($5, source_author),
-    WHERE id_item = $6
+    tagName = COALESCE($1, tag_name),
+    WHERE id_item = $2
     RETURNING *;
     `;
 
     const values = [
-      data.contentType,
-      data.title,
+      data.tagName,
       slug,
-      data.content,
-      data.sourceAuthor || "N.C",
     ];
 
     const { rows } = await db.query(query, values);
     return rows[0] ? new Item(rows[0]) : null
   }
 
-  static async delete(id) {
-    const query = /*sql*/ `DELETE FROM items WHERE id_item = $1;`;
+  static async destroy(id) {
+    const query = /*sql*/ `DELETE FROM tags WHERE id_tag = $1;`;
     const result = await db.query(query, [id]);
     // rowCount permet de savoir si une ligne a bien été supprimée
     return result.rowCount > 0;

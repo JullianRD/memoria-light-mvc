@@ -2,7 +2,7 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import path from "path";
-import itemRoutes from "./routes/itemRoutes.js";
+import Routes from "./routes/Routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,7 +19,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-app.use("/", itemRoutes);
+app.use("/", Routes);
 
 // Démarrage
 const PORT = process.env.PORT || 3000;
