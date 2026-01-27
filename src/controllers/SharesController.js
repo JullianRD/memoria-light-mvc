@@ -35,7 +35,7 @@ class ShareController {
   async store(req, res) {
     try {
       console.log("REQ.BODY =", req.body);
-      const data = req.body;
+      const data = req.params.id;
       await Share.create(data);
       res.status(201).redirect("/items");
     } catch (error) {

@@ -2,7 +2,7 @@
 import express from "express";
 import itemController from "../controllers/ItemController.js";
 import tagController from "../controllers/TagController.js";
-import shareController from "../controllers/SharesController";
+import shareController from "../controllers/SharesController.js";
 
 const router = express.Router();
 
@@ -27,5 +27,7 @@ router.post("/tags/:id/destroy", tagController.destroy);
 router.get("/shares", shareController.index);
 router.get("/shares/:id", shareController.show);
 router.post("/shares", shareController.store);
+
+//Définitions des routes pour les utilisateurs (users)
 
 export default router;
