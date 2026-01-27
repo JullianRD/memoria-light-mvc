@@ -73,7 +73,7 @@ export class Tag {
   }
 
   static async update(id, data) {
-    const slug = generateSlug(data.title);
+    const slug = generateSlug();
     const query = /*sql*/ `
     UPDATE tags
     SET 

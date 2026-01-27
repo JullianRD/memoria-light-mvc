@@ -75,9 +75,7 @@ export class User {
       data.passwordHash,
       data.pseudo,
       data.roleName,
-      data.auth_provider,
-      data.settingsUser,
-      data.gdprConsent,
+      data.auth_provider
     ];
 
     const { rows } = await db.query(query, values);
@@ -85,17 +83,22 @@ export class User {
   }
 
   static async update(id, data) {
-    const slug = generateSlug(data.title);
+    const slug = generateSlug();
     const query = /*sql*/ `
-    UPDATE tags
+    UPDATE users
     SET 
-    tagName = COALESCE($1, tag_name),
-    WHERE id_item = $2
+    pseudo = COALESCE($1, pseudo),
+    email = COALESCE($2, email),
+    WHERE id_user = $3
     RETURNING *;
     `;
 
     const values = [
-      data.tagName,
+      data.email,
+      data.passwordHash,
+      data.pseudo,
+      data.roleName,
+      data.authProvider,
       slug,
     ];
 
@@ -104,7 +107,7 @@ export class User {
   }
 
   static async destroy(id) {
-    const query = /*sql*/ `DELETE FROM tags WHERE id_tag = $1;`;
+    const query = /*sql*/ `DELETE FROM users WHERE id_user = $1;`;
     const result = await db.query(query, [id]);
     // rowCount permet de savoir si une ligne a bien été supprimée
     return result.rowCount > 0;

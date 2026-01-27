@@ -3,6 +3,7 @@ import express from "express";
 import itemController from "../controllers/ItemController.js";
 import tagController from "../controllers/TagController.js";
 import shareController from "../controllers/SharesController.js";
+import userController from "../controllers/UserController.js";
 
 const router = express.Router();
 
@@ -29,5 +30,11 @@ router.get("/shares/:id", shareController.show);
 router.post("/shares", shareController.store);
 
 //Définitions des routes pour les utilisateurs (users)
+router.get("/users", userController.index);
+router.post("/users", userController.store);
+router.get("/users/:id/edit", userController.edit);
+router.get("/users/:id", userController.show);
+router.post("/:id/update", userController.updateUser);
+router.post("/users/:id/destroy", userController.destroy);
 
 export default router;
