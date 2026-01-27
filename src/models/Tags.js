@@ -8,7 +8,7 @@ import { generateSlug } from "../utils/generateSlug.js";
 export class Tag {
   constructor(row) {
     // Mapping SQL (snake_case) vers JS (camelCase)
-    this.id = row.id_item;
+    this.id = row.id_tag;
     this.userId = row.user_id;
     this.tagName = row.tag_name
     this.createdAt = row.created_at;
@@ -25,7 +25,7 @@ export class Tag {
     const query = /*sql*/ `SELECT * FROM tags ORDER BY created_at DESC;`;
     const { rows } = await db.query(query);
     if (rows.length === 0) return null;
-    return rows.map((row) => new Item(row));
+    return rows.map((row) => new Tag(row));
   }
 
   /**
@@ -39,7 +39,7 @@ export class Tag {
     const { rows } = await db.query(query, [id]);
     console.log("Show Item Model :", { rows });
     if (rows.length === 0) return null;
-    return new Item(rows[0]);
+    return new Tag(rows[0]);
   }
 
   /**
@@ -55,10 +55,10 @@ export class Tag {
     const SEEDER_USER_ID = "018d5c8e-5678-7001-9001-000000000001";
 
     // Génération du slug basique pour respecter la contrainte NOT NULL
-    const slug = generateSlug(data.title);
+    const slug = generateSlug(data.tagName);
 
     const query = /*sql*/ `
-      INSERT INTO items (user_id, tag_name)
+      INSERT INTO tags (user_id, tag_name)
       VALUES ($1, $2)
       RETURNING *;
     `;
@@ -66,7 +66,6 @@ export class Tag {
     const values = [
       SEEDER_USER_ID,
       data.tagName,
-      slug,
     ];
 
     const { rows } = await db.query(query, values);
@@ -89,7 +88,7 @@ export class Tag {
     ];
 
     const { rows } = await db.query(query, values);
-    return rows[0] ? new Item(rows[0]) : null
+    return rows[0] ? new Tag(rows[0]) : null
   }
 
   static async destroy(id) {

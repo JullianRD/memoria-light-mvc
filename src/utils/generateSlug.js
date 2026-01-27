@@ -11,5 +11,5 @@ export const generateSlug = (title) => {
     .replace(/[\s_-]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-    return sluglifyTitle;
+  return sluglifyTitle;
 };

@@ -1,18 +1,17 @@
-<!-- views.pages/items/edit.ejs  -->
-<h1>Modifier la pépite</h1>
+<!-- views.pages/items/edit.ejs -->
 
 <div class="form-container">
-    <form action="/items/<%= item.id %>/update " method="POST">
+    <form action="/items/<%= item.id %>/update" method="POST">
 
         <h3>Modifier la pépite</h3>
 
         <div style="display: flex; gap: 10px;">
-            <label for="title">Titre: </label>
-            <input type="text" name="title" value="<%= item.title %>" style="flex:2">
-            <label for="sourceAuthor">Auteur/Source: </label>
+            <label for="title">Titre:</label>
+            <input type="text" name="title" value="<%= item.title %>" required style="flex:2">
+            <label for="sourceAuthor">Auteur/Source:</label>
             <input type="text" name="sourceAuthor" value="<%= item.sourceAuthor %>" style="flex: 1;">
         </div>
-        <label for="content">Contenu: </label>
+        <label for="content">Contenu:</label>
         <textarea name="content" rows="5" required> <%= item.content %></textarea>
         <div style="display: flex; align-items: center; gap: 15px;">
             <label for="contentType">Source Type: </label>
@@ -23,8 +22,10 @@
                 <option value="video" <%=item.contentType==="video" ? "selected" : '' %>>Video</option>
             </select>
             <button type="submit">Modifier la pépite</button>
-            <button type="reset">Annuler</button>
-            <a href="/items/<%= item.id %>">Annuler</a>
+            <button type="reset">Réinitialiser</button>
+            <a href="/items/<%= item.id %>">Retour</a>
         </div>
+
     </form>
+
 </div>

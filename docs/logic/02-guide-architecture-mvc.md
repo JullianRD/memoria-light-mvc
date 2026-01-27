@@ -103,7 +103,7 @@ export class ItemController {
 
 ---
 
-_Dernière mise à jour : 22/01/2026_
+_Dernière mise à jour : 24/01/2026_
 
 ---
 

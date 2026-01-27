@@ -2,7 +2,7 @@
  * TODO_02 : Créer les endpoints d'accès à la view (compétence 7 -> REV )
  */
 
-import { Tag } from "../models/Tags";
+import { Tag } from "../models/Tags.js";
 
 class TagController {
   // GET /items -> Liste complète de toutes les pépites
@@ -10,7 +10,7 @@ class TagController {
     try {
       const tags = await Tag.findAll();
       // On envoie des OBJETS à la vue
-      res.render("pages/items/index", { tags: tags });
+      res.render("pages/tags/index", { tags: tags });
     } catch (error) {
       console.error(error);
       res.status(500).send("Erreur serveur");
@@ -25,7 +25,7 @@ class TagController {
       if (!tag) {
         return res.status(404).send("Pépite non trouvée")
       }
-      res.render("pages/items/edit", { tag });
+      res.render("pages/tags/edit", { tag });
     } catch (error) {
       console.error(error);
       res.status(500).send("Erreur lors de la récupération du tag");
@@ -39,7 +39,7 @@ class TagController {
       const id = req.params.id;
       const tag = await Tag.findById(id);
       console.log("Show controller tag:", tag);
-      res.render("pages/items/show", { tag: tag });
+      res.render("pages/tags/show", { tag: tag });
     } catch (error) {
       console.error(error);
       res.status(404).send("La page est introuvable");
@@ -53,7 +53,7 @@ class TagController {
       const data = req.body;
 
       // Vérifier si la mise à jour du site à réussi
-      const updateItem = await Tag.update(id, data);
+      const updateTag = await Tag.update(id, data);
 
       if (!updateTag) {
         return res.status(404).send("Pépite non trouvée")
@@ -70,6 +70,7 @@ class TagController {
   // POST /items -> Enregistre le nouveau tag
   async store(req, res) {
     try {
+      console.log("REQ.BODY =", req.body);
       const data = req.body;
       await Tag.create(data);
       res.status(201).redirect("/tags");
@@ -82,7 +83,7 @@ class TagController {
      async destroy(req, res) {
         try {
             const id = req.params.id
-            await Tag.delete(id);
+            await Tag.destroy(id);
             res.status(201).redirect('/tags');
         } catch (error) {
                         console.error(error);

@@ -157,6 +157,6 @@ Dans une application **SSR**, les formulaires envoient souvent tout sous forme d
 
 ---
 
-_Dernière mise à jour : 22/01/2026_
+_Dernière mise à jour : 24/01/2026_
 
 ---

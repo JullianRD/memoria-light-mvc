@@ -102,6 +102,6 @@ router.post("/items", auth.check, validate(itemSchema), itemController.store);
 
 ---
 
-_Dernière mise à jour : 22/01/2026_
+_Dernière mise à jour : 24/01/2026_
 
 ---
