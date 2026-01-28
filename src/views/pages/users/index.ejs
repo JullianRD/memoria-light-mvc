@@ -83,11 +83,27 @@
 
     <!-- Formulaire d'ajout -->
     <div class="form-container">
-        <h3>Add a New Tag</h3>
-        <form action="/tags" method="post">
-            <div style="display: flex; gap: 10px;">
-                <input type="text" name="tagName" placeholder="Title of the insight" required style="flex:2">
-            </div>
+        <h3>Ajouter un utilisateur</h3>
+        <form action="/users" method="post">
+                    <div style="margin-bottom: 1.5rem;">
+            <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #555;">Email
+                *</label>
+            <input type="email" id="email" name="email" placeholder="user@example.com" required
+                style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+        </div>
+                <div style="margin-bottom: 1.5rem;">
+            <label for="passwordHash"
+                style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #555;">Password *</label>
+            <input type="password" id="passwordHash" name="passwordHash" placeholder="Min. 8 characters" required
+                minlength="8"
+                style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+        </div>
+                <div style="margin-bottom: 1.5rem;">
+            <label for="pseudo" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #555;">Pseudo
+                *</label>
+            <input type="text" id="pseudo" name="pseudo" placeholder="Your username" required
+                style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+        </div>
 
             <div style="display: flex; align-items: center; gap: 15px;">
                 <button type="submit">Save to Vault</button>
@@ -98,6 +114,50 @@
     <!-- Liste des pépites -->
 
     <div>
+                <% if (users.length===0) { %>
+            <p>No insights captured yet, Strat by adding one above !</p>
+            <% }%>
+
+                <% users.forEach(function(user) { %>
+                    <div class="card">
+                        <span class="badge">
+                            <%= user.pseudo %>
+                        </span>
+                        <h2 style="margin: 0.5rem 0;">
+                            <%= user.email %>
+                        </h2>
+                        <p style="color: #555; text-decoration: underline; font-size: 0.9rem;">
+                            By: <%= user.roleName %>
+                        </p>
+                        <div style="margin-top: 1rem; line-height: 1.6;">
+                            <%= users.authProvider %>
+                        </div>
+                        <div>
+                            <button type="submit" style="background: #40a8d8; cursor: pointer; margin-bottom: 3%;">
+                            <a href="/users/<%= user.id %>">Afficher l'utilisateur</a>
+                        </button>
+                        </div>
+                        <form action="/users/<%= user.id %>/destroy" method="POST"
+                            onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?')">
+                            <button type="submit" style="background: #e74c3c; cursor: pointer;">
+                                🗑️ Supprimer cet utilisateur
+                            </button>
+                        </form>
+                        <form action="/users/<%= user.id %>/updateUser" method="POST">
+                                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                            <button type="submit" style="background: #40a8d8; cursor: pointer; margin-bottom: 3%;">
+                            <a href="/users/<%= user.id %>">Mettre à jour l'utilisateur/a>
+                        </button>
+                        </div>
+                        </form>
+
+                        <div class="meta">
+                            Captured on <%= user.createdAt.toLocaleDateString() %> at
+                                <%= user.createdAt.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %>
+                        </div>
+                    </div>
+
+                    <% }); %>
     </div>
 
 </body>

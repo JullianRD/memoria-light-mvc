@@ -1,0 +1,109 @@
+<!-- src/views/pages/users/new.ejs -->
+<div class="container" style=" margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <h3 style="margin-bottom: 1.5rem; color: #333;">Add a New User</h3>
+
+    <form action="/users" method="POST">
+
+        <!-- Email -->
+        <div style="margin-bottom: 1.5rem;">
+            <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #555;">Email
+                *</label>
+            <input type="email" id="email" name="email" placeholder="user@example.com" required
+                style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+        </div>
+
+        <!-- Mot de passe -->
+        <div style="margin-bottom: 1.5rem;">
+            <label for="passwordHash"
+                style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #555;">Password *</label>
+            <input type="password" id="passwordHash" name="passwordHash" placeholder="Min. 8 characters" required
+                minlength="8"
+                style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+        </div>
+
+        <!-- Pseudo -->
+        <div style="margin-bottom: 1.5rem;">
+            <label for="pseudo" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #555;">Pseudo
+                *</label>
+            <input type="text" id="pseudo" name="pseudo" placeholder="Your username" required
+                style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+        </div>
+
+        <!-- Rôle et Auth Provider sur la même ligne -->
+        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="flex: 1;">
+                <label for="roleName" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #555;">Role
+                    *</label>
+                <select id="roleName" name="roleName" required
+                    style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                    <option value="customer" selected>Customer</option>
+                    <option value="admin">Admin</option>
+                    <option value="super_admin">Super Admin</option>
+                </select>
+            </div>
+
+            <div style="flex: 1;">
+                <label for="authProvider"
+                    style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #555;">Auth Provider
+                    *</label>
+                <select id="authProvider" name="authProvider" required
+                    style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                    <option value="local" selected>Local</option>
+                    <option value="google">Google</option>
+                    <option value="azure">Azure</option>
+                    <option value="apple">Apple</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Settings User -->
+        <fieldset style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+            <legend style="font-weight: 600; color: #555; padding: 0 0.5rem;">Settings</legend>
+
+            <div style="margin-bottom: 0.75rem;">
+                <input type="checkbox" id="settingThemeDark" name="settings[theme]" value="dark"
+                    style="margin-right: 0.5rem;">
+                <label for="settingThemeDark" style="color: #555;">Dark Mode</label>
+            </div>
+
+            <div style="margin-bottom: 0.75rem;">
+                <input type="checkbox" id="settingNotifications" name="settings[notifications]" value="true"
+                    style="margin-right: 0.5rem;">
+                <label for="settingNotifications" style="color: #555;">Enable Notifications</label>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <label for="settingLanguage"
+                    style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #555;">Language:</label>
+                <select id="settingLanguage" name="settings[language]"
+                    style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="fr">Français</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
+        </fieldset>
+
+        <!-- Consentement RGPD -->
+        <div
+            style="margin-bottom: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; border-left: 4px solid #007bff;">
+            <input type="checkbox" id="gdprConsent" name="gdprConsent" value="false" required
+                style="margin-right: 0.5rem;">
+            <label for="gdprConsent" style="color: #555;">I consent to the storage of my personal data (RGPD) *</label>
+        </div>
+
+        <!-- Boutons -->
+        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button type="submit"
+                style="flex: 1; padding: 0.75rem; background: #007bff; color: white; border: none; border-radius: 4px; font-size: 1rem; font-weight: 600; cursor: pointer;">
+                ✅ Create User
+            </button>
+            <a href="/users"
+                style="flex: 1; padding: 0.75rem; background: #6c757d; color: white; border: none; border-radius: 4px; font-size: 1rem; font-weight: 600; text-align: center; text-decoration: none; display: inline-block;">
+                ❌ Cancel
+            </a>
+        </div>
+
+    </form>
+</div>

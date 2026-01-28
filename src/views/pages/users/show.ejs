@@ -1,0 +1,25 @@
+<div class="card">
+    <a href="/users"> Retour aux utilisateurs</a>
+    <hr>
+    <span class="badge">
+        <%= user.pseudo %>
+    </span>
+    <h1>
+        <%= user.email %>
+        <%= user.roleame %>
+        <%= user.metadata %>
+
+    </h1>
+    <div style="background: #fdfdfd; padding: 20px; border-left: 4px solid #2c3e50; margin: 20px 0;">
+        <%= user.auth_provider %>
+    </div>
+
+    <div class="meta">
+        Captured on <%= user.createdAt.toLocaleDateString() %> at
+            <%= user.createdAt.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %>
+    </div>
+
+    <div>
+        <a href="/users/<%= user.id %>/edit">Modifier cet user</a>
+    </div>
+</div>

@@ -14,9 +14,6 @@ export class User {
     this.pseudo = row.pseudo
     this.roleName = row.role_name
     this.auth_provider = row.auth_provider
-    this.settingsUser = row.settings_user
-    this.gdprConsent = row.gdpr_consent
-    this.gdprConsentDate = row.gdpr_consent_date
     this.createdAt = row.created_at;
     this.updatedAt = row.updated_at;
   }
@@ -30,7 +27,6 @@ export class User {
     // Prepare ma requête
     const query = /*sql*/ `SELECT * FROM users ORDER BY created_at DESC;`;
     const { rows } = await db.query(query);
-    if (rows.length === 0) return null;
     return rows.map((row) => new User(row));
   }
 
@@ -44,8 +40,7 @@ export class User {
     const query = /*sql*/ `SELECT * FROM users WHERE id_user = $1;`;
     const { rows } = await db.query(query, [id]);
     console.log("Show User Model :", { rows });
-    if (rows.length === 0) return null;
-    return new Tag(rows[0]);
+    return rows[0] ? new User(rows[0]) : null
   }
 
   /**
@@ -57,53 +52,45 @@ export class User {
    * @returns {Promise<User>} - Une promesse résolue avec l'objet correspondant.
    */
   static async create(data) {
-    // Ton UUID issu de tes seeders
-    const SEEDER_USER_ID = "018d5c8e-5678-7001-9001-000000000001";
 
     // Génération du slug basique pour respecter la contrainte NOT NULL
-    const slug = generateSlug(data.tagName);
 
     const query = /*sql*/ `
-      INSERT INTO tags (email, password_hash, pseudo, role_name, auth_provider, settings_user, gdpr_consent)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      INSERT INTO users (email, password_hash, pseudo, role_name, auth_provider)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
 
     const values = [
-      SEEDER_USER_ID,
       data.email,
       data.passwordHash,
       data.pseudo,
-      data.roleName,
-      data.auth_provider
+      "customer",        // 🔒 valeur ENUM sûre
+      "local"        // 🔒 valeur contrôlée
     ];
 
     const { rows } = await db.query(query, values);
-    return new Tag(rows[0]);
+    return new User(rows[0]);
   }
 
-  static async update(id, data) {
-    const slug = generateSlug();
+  static async updateUser(id, data) {
     const query = /*sql*/ `
     UPDATE users
     SET 
     pseudo = COALESCE($1, pseudo),
-    email = COALESCE($2, email),
+    email = COALESCE($2, email)
     WHERE id_user = $3
     RETURNING *;
     `;
 
     const values = [
-      data.email,
-      data.passwordHash,
       data.pseudo,
-      data.roleName,
-      data.authProvider,
-      slug,
+      data.email,
+      id
     ];
 
     const { rows } = await db.query(query, values);
-    return rows[0] ? new Tag(rows[0]) : null
+    return rows[0] ? new User(rows[0]) : null
   }
 
   static async destroy(id) {
