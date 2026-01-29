@@ -1,3 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoria - Digital Vault</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+        }
+
+        .form-container {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #eee;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: block;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #34495e;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 0.5rem;
+        }
+
+        .meta {
+            color: #6c757d;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
 <div class="container">
     <h3>Edit User</h3>
 
@@ -48,7 +126,12 @@
         <!-- Boutons -->
         <div>
             <button type="submit">Save Changes</button>
-            <a href="/users">Cancel</a>
+            <button type="submit" style="background-color: #6c757d;">
+            <a href="/users" style="text-decoration: none; color: #e9ecef;">Cancel</a>
+            </button>
         </div>
+        
     </form>
 </div>
+</body>
+</html>

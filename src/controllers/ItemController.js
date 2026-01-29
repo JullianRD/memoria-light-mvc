@@ -163,38 +163,21 @@ class ItemController {
    * @throws {Error} 404 - Pépite non trouvée
    * @throws {Error} 500 - Erreur lors de la mise à jour
    */
-  async update(req, res) {
-    try {
-      // Extraction de l'ID depuis les paramètres d'URL
-      const id = req.params.id;
-
-      // Extraction des données du formulaire
-      // req.body contient : { title: "...", content: "...", category_id: 1 }
-      const data = req.body;
-
-      // Mise à jour en base de données
-      // Item.update() retourne l'objet mis à jour ou null si non trouvé
-      const updatedItem = await Item.update(id, data);
-
-      // Si la pépite n'existe pas, retourner une erreur 404
-      if (!updatedItem) {
-        return res.status(404).send("Pépite non trouvée");
-      }
-
-      // Redirection vers la page de détail de la pépite modifiée
-      // Pattern PRG (Post-Redirect-Get) : évite les soumissions multiples
-      res.redirect(`/items/${id}`);
-
-      // Alternative : rediriger vers la liste complète
-      // res.redirect("/items");
-    } catch (error) {
-      console.error("❌ Erreur dans update():", error);
-
-      // Message d'erreur détaillé pour le développement
-      // ⚠️ En production : ne pas exposer error.message (sécurité)
-      res.status(500).send("Erreur lors de la mise à jour : " + error.message);
+ async update(req, res) {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    const updatedItem = await Item.update(id, data);
+    if (!updatedItem) {
+      return res.status(404).send("Item not found");
     }
+    res.redirect(`/items/${id}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error updating item: " + error.message);
   }
+}
+
 
   /**
    * 👁️ Affiche les détails d'une pépite (READ one)

@@ -77,7 +77,12 @@
 </head>
 
 <body>
-    <a href="/items">Go to Items</a>
+    <Button type="submit" style="margin-right: 2%; background-color: #e9ecef;">
+        <a href="/items" style="text-decoration: none; color: #6c757d;">Go to items</a>
+    </Button>
+    <Button type="submit" style="margin-right: 2%; background-color: #e9ecef;">  
+        <a href="/users" style="text-decoration: none; color: #6c757d;">Go to users</a>
+        </Button>
     <h1>Memoria</h1>
     <p>Your personal knowledge vault.</p>
 
@@ -107,16 +112,16 @@
                         <h2 style="margin: 0.5rem 0;">
                             <%= tag.tagName %>
                         </h2>
-                    </div>
                     <form action="/tags/<%= tag.id %>/destroy" method="POST"
                         onsubmit="return confirm('Voulez-vous vrament supprimer ce tag ?')">
-                    <button type="submit" style="background: #e74c3c; cursor: pointer;">
+                    <button type="submit" style="background: #e7210b; cursor: pointer;">
                         Supprimer ce Tag
                     </button>
                     </form>
                     <div class="meta">
                         Captured on <% tag.createdAt.toLocaleTimeString() %> at
                         <%= tag.createdAt.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %>
+                    </div>
                     </div>
                     <% }) %>
     </div>

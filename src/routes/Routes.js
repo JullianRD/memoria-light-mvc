@@ -13,7 +13,7 @@ router.get("/items", itemController.index);
 router.post("/items", itemController.store);
 router.get("/items/:id/edit", itemController.edit);
 router.get("/items/:id", itemController.show);
-router.post("/:id/update", itemController.update);
+router.post("/items/:id/update", itemController.update);
 router.post("/items/:id/delete", itemController.destroy);
 
 //Définition des routes pour les tags
@@ -31,8 +31,8 @@ router.post("/shares", shareController.store);
 
 //Définitions des routes pour les utilisateurs (users)
 router.get("/users", userController.index);
-router.get("/users/new", userController.new);
 router.post("/users", userController.store);
+router.get("/users/new", userController.new);
 router.get("/users/:id/edit", userController.edit);
 router.get("/users/:id", userController.show);
 router.post("/users/:id/updateUser", userController.updateUser);

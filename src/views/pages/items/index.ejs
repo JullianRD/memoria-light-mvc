@@ -78,8 +78,12 @@
 </head>
 
 <body>
-        <a href="/tags">Go to Tags</a>
-        <a href="/users">Go to users</a>
+    <Button type="submit" style="margin-right: 2%; background-color: #e9ecef;">
+        <a href="/tags" style="text-decoration: none; color: #6c757d;">Go to Tags</a>
+    </Button>
+    <Button type="submit" style="margin-right: 2%; background-color: #e9ecef;">  
+        <a href="/users" style="text-decoration: none; color: #6c757d;">Go to users</a>
+        </Button>
     <h1>Memoria</h1>
     <p>Your personal knowledge vault.</p>
 
@@ -128,11 +132,13 @@
                             <%= item.content %>
                         </div>
                         <div>
-                            <a href="/items/<%= item.id %>">Lire cette pépite</a>
+                            <button type="submit" style="margin-bottom: 3%; color: #2c3e50; margin-top: 1%;">
+                            <a href="/items/<%= item.id %>" style="color: #ddd; text-decoration: none;">Lire cette pépite</a>
+                            </button>
                         </div>
                         <form action="/items/<%= item.id %>/delete" method="POST"
                             onsubmit="return confirm('Voulez-vous vraiment supprimer cette pépite ?')">
-                            <button type="submit" style="background: #e74c3c; cursor: pointer;">
+                            <button type="submit" style="background: #e7210b; cursor: pointer;">
                                 🗑️ Supprimer cette pépite
                             </button>
                         </form>

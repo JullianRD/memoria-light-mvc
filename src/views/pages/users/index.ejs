@@ -77,7 +77,12 @@
 </head>
 
 <body>
-    <a href="/items">Go to Items</a>
+    <Button type="submit" style="margin-right: 2%; background-color: #e9ecef;">
+        <a href="/items" style="text-decoration: none; color: #6c757d;">Go to items</a>
+    </Button>
+    <Button type="submit" style="margin-right: 2%; background-color: #e9ecef;">  
+        <a href="/tags" style="text-decoration: none; color: #6c757d;">Go to tags</a>
+        </Button>
     <h1>Memoria</h1>
     <p>Your personal knowledge vault.</p>
 
@@ -141,13 +146,13 @@
                         </div>
                         <div>
                             <button type="submit" style="background: #40a8d8; cursor: pointer; margin-bottom: 3%;">
-                            <a href="/users/<%= user.id %>">Afficher l'utilisateur</a>
+                            <a href="/users/<%= user.id %>" style="text-decoration: none; color: #ffffff;">👁️ Afficher l'utilisateur</a>
                         </button>
                         </div>
                         <form action="/users/<%= user.id %>/destroy" method="POST"
                             onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?')">
-                            <button type="submit" style="background: #e74c3c; cursor: pointer;">
-                                🗑️ Supprimer cet utilisateur
+                            <button type="submit" style="background: #e7210b; cursor: pointer;">
+                                🗑️ Supprimer l'utilisateur
                             </button>
                         </form>
                         <form action="/users/<%= user.id %>/edit" method="GET">
