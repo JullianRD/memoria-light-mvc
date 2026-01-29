@@ -1,0 +1,54 @@
+<div class="container">
+    <h3>Edit User</h3>
+
+    <!-- Formulaire POST vers la route de mise à jour -->
+    <form action="/users/<%= user.id %>/updateUser" method="POST">
+
+        <!-- Email -->
+        <div>
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required
+                value="<%= user.email %>">
+        </div>
+
+        <!-- Mot de passe -->
+        <div>
+            <label for="passwordHash">Password</label>
+            <input type="password" id="passwordHash" name="passwordHash" placeholder="Laisser vide pour ne pas changer">
+        </div>
+
+        <!-- Pseudo -->
+        <div>
+            <label for="pseudo">Pseudo *</label>
+            <input type="text" id="pseudo" name="pseudo" required
+                value="<%= user.pseudo %>">
+        </div>
+
+        <!-- Role -->
+        <div>
+            <label for="roleName">Role *</label>
+            <select id="roleName" name="roleName" required>
+                <option value="customer" <%= user.roleName === "customer" ? "selected" : "" %>>Customer</option>
+                <option value="admin" <%= user.roleName === "admin" ? "selected" : "" %>>Admin</option>
+                <option value="super_admin" <%= user.roleName === "super_admin" ? "selected" : "" %>>Super Admin</option>
+            </select>
+        </div>
+
+        <!-- Auth Provider -->
+        <div>
+            <label for="authProvider">Auth Provider *</label>
+            <select id="authProvider" name="authProvider" required>
+                <option value="local" <%= user.auth_provider === "local" ? "selected" : "" %>>Local</option>
+                <option value="google" <%= user.auth_provider === "google" ? "selected" : "" %>>Google</option>
+                <option value="azure" <%= user.auth_provider === "azure" ? "selected" : "" %>>Azure</option>
+                <option value="apple" <%= user.auth_provider === "apple" ? "selected" : "" %>>Apple</option>
+            </select>
+        </div>
+
+        <!-- Boutons -->
+        <div>
+            <button type="submit">Save Changes</button>
+            <a href="/users">Cancel</a>
+        </div>
+    </form>
+</div>

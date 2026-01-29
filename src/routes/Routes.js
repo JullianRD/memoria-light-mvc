@@ -31,10 +31,11 @@ router.post("/shares", shareController.store);
 
 //Définitions des routes pour les utilisateurs (users)
 router.get("/users", userController.index);
+router.get("/users/new", userController.new);
 router.post("/users", userController.store);
 router.get("/users/:id/edit", userController.edit);
 router.get("/users/:id", userController.show);
-router.post("/:id/update", userController.updateUser);
+router.post("/users/:id/updateUser", userController.updateUser);
 router.post("/users/:id/destroy", userController.destroy);
 
 export default router;

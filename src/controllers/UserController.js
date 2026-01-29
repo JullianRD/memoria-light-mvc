@@ -53,21 +53,31 @@ class UserController {
       const data = req.body;
 
       // Vérifier si la mise à jour du site à réussi
-      const updatedUser = await User.update(id, data);
+      const updateUser = await User.updateUser(id, data);
 
       if (!updateUser) {
         return res.status(404).send("Utilisateur non trouvé")
       }
 
-      res.redirect("pages/users/news"); // Redirige vers l'utilisateur modifié
-      // res.redirect("/users");    
+      res.redirect("/users"); // Redirige vers un formulaire de modification   
     } catch (error) {
       console.error(error);
       res.status(500).send("Erreur lors de la mise à jour de l'utilisateur : " + error.message);
     }
   }
 
-  // POST /items -> Enregistre le nouveau tag
+
+  // GET /users/new → affiche le formulaire
+async new(req, res) {
+  try {
+    res.render("pages/users/new");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Erreur lors de l'affichage du formulaire");
+  }
+}
+
+  // POST /items -> Enregistre le nouvel utilisateur
 async store(req, res) {
   try {
     const { email, passwordHash, pseudo } = req.body;

@@ -83,7 +83,7 @@
 
     <!-- Formulaire d'ajout -->
     <div class="form-container">
-        <h3>Ajouter un utilisateur</h3>
+        <h3>Ajouter un utilisateur (version simple)</h3>
         <form action="/users" method="post">
                     <div style="margin-bottom: 1.5rem;">
             <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #555;">Email
@@ -109,6 +109,13 @@
                 <button type="submit">Save to Vault</button>
             </div>
         </form>
+                                <form action="/users/new" method="GET">
+                                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                            <button type="submit" style="background: #40a8d8; cursor: pointer; margin-bottom: 3%;">
+                            <a>Ajouter un utilisateur (version complète)</a>
+                        </button>
+                        </div>
+                        </form>
     </div>
 
     <!-- Liste des pépites -->
@@ -143,10 +150,11 @@
                                 🗑️ Supprimer cet utilisateur
                             </button>
                         </form>
-                        <form action="/users/<%= user.id %>/updateUser" method="POST">
+                        <form action="/users/<%= user.id %>/edit" method="GET">
                                     <div style="display: flex; gap: 1rem; margin-top: 2rem;">
                             <button type="submit" style="background: #40a8d8; cursor: pointer; margin-bottom: 3%;">
-                            <a href="/users/<%= user.id %>">Mettre à jour l'utilisateur/a>
+                            <a>Mettre à jour l'utilisateur</a>
+                            
                         </button>
                         </div>
                         </form>
