@@ -7,10 +7,8 @@ import { registerSchema } from "./userValidator"
  * @see https://zod.dev/
 */
 
-export const registerSchema = z.object({
-    tag_name: z.string().max(50, ""),
+export const createTagSchema = z.object({
+    tag_name: z.string().max(50, "").min(1, ""),
 })
 
-export const responseTagSchema = z.object({
-    tag_name: z.string().max(50, "")
-})
+export const updateTagSchema = createTagSchema;partials();
