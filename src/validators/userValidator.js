@@ -1,5 +1,5 @@
 'use strict'
-import { z} from "zod"
+import { z } from "zod"
 
 /**
  * Schéma de validation pour l'inscription d'un utilisateur
