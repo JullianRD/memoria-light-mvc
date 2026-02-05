@@ -10,3 +10,7 @@ import { registerSchema } from "./userValidator"
 export const registerSchema = z.object({
     tag_name: z.string().max(50, ""),
 })
+
+export const responseTagSchema = z.object({
+    tag_name: z.string().max(50, "")
+})

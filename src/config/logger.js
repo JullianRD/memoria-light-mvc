@@ -1,5 +1,5 @@
 import pino, { destination } from 'pino'
-import PinoHttp from "pino-http";
+import pinoHttp from "pino-http";
 import fs from "fs"
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
