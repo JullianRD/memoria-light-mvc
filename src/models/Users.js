@@ -45,7 +45,7 @@ export class User {
 
   /**
    * Crée un nouveau tag dans la base de données.
-   * L'identifiant est générée automiquement.
+   * L'identifiant est généré automiquement.
    * La date de création est générée automatiquement
    * @param {object} data
    * @param {string} data.userPseudo - Le nom d'un user.
