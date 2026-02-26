@@ -11,3 +11,5 @@ BEGIN
         CREATE INDEX "idx_user_sessions_expire" ON user_sesisons(expire);
         RAISE NOTICE 'Table "user_sessions" créée.';
         END IF
+
+        -- Sauvegarde de session
