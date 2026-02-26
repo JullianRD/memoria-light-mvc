@@ -22,10 +22,16 @@ CREATE TABLE IF NOT EXISTS users (
     CONSTRAINT chk_email_is_valid CHECK ( -- Contraintes métier
         email ~ '^[^@]+@[^@.]+\.[^@]+$'
     )
+--     Ta contrainte impose (avec un regex):
+-- au moins un caractère
+-- un seul @
+-- un point dans le domaine
+-- quelque chose avant et après le point
 );
 
 -- Indexation JSONB (Recherche rapide dans les réglages utilisateur)
 CREATE INDEX idx_users_settings ON users USING gin (settings_user);
+-- "Je crée un index spécial optimisé pour rechercher rapidement dans ma colonne JSONB settings_user."
 
 -- Documentation
 COMMENT ON TABLE users IS 'Stocke les informations d identification et les préférences des utilisateurs (RGPD compliant)';
@@ -38,3 +44,4 @@ COMMENT ON COLUMN users.gdpr_consent_date IS 'Date et heure précises du consent
 
 -- Application du trigger
 CREATE TRIGGER set_timestamp_users BEFORE UPDATE ON users FOR EACH ROW EXECUTE PROCEDURE trigger_set_timestamp();
+-- “À chaque fois qu’un utilisateur est modifié, je mets automatiquement à jour son timestamp.”

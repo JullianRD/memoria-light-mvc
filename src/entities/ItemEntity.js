@@ -1,20 +1,19 @@
 
 
 export class ItemEntity {
-  constructor(data) {
-    this.id = data.id;
-    this.user_id = data.user_id;
-    this.type = data.type;
-    this.title = data.title;
-    this.content = data.content;
-    this.author = data.author;
-    this.source_url = data.source_url;
-    this.image_url = data.image_url;
-    this.slug = data.slug;
-    this.is_public = data.is_public;
-    this.view_count = data.view_count;
-    this.created_at = data.created_at;
-    this.updated_at = data.updated_at;
+  constructor(row) {
+    this.id = row.id_item ?? row.id;
+    this.userId = row.user_id;
+    this.contentType = row.content_type ?? row.type;
+    this.title = row.title;
+    this.slug = row.slug;
+    this.content = row.content;
+    this.sourceAuthor = row.source_author ?? row.author;
+    this.thumbnailUrl = row.thumbnail_url ?? row.image_url ?? row.source_url;
+    this.metadata = row.metadata;
+    this.tags = row.tags ?? [];
+    this.createdAt = row.created_at;
+    this.updatedAt = row.updated_at;
   }
     /**
    * Crée une entité depuis une ligne PostgreSQL

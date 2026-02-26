@@ -11,7 +11,7 @@ const PgSession = connectPgSession(session);
  */
 const sessionConfig = {
     secret: process.env.SESSION_SECRET || "remplace_moi_par_une_cle_secrete_longue_et_aleatoire_en_prod",
-    resave: false, // Nepas sauvegarder la session si ellen'a pas été modifiée
+    resave: false, // Ne pas sauvegarder la session si elle n'a pas été modifiée
     saveUninitialized: false, // Ne pas créer de session pour les visiteurs anonymes (GDPR Friendly)
     cookie: {
         secure: process.env.NODE_ENV === "production", // HTTPS uniquement en prod
